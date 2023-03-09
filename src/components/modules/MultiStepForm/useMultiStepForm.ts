@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MultiStepFormContext } from './multiStepFormContext';
+import { MultiStepFormContext } from './MultiStepFormProvider';
 
 export const useMultiStepForm = () => {
   const contextMultiStepForm = React.useContext(MultiStepFormContext);

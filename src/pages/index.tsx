@@ -3,7 +3,7 @@ import * as i from 'types';
 import { Heading } from 'common/typography';
 import { Container } from 'modules/Home';
 import { MultiStepForm } from 'modules/MultiStepForm';
-import { MultiStepFormConfigsType } from 'modules/MultiStepForm/multiStepFormContext';
+import { MultiStepFormConfigsType } from 'modules/MultiStepForm/MultiStepFormProvider';
 
 const CONFIGS: MultiStepFormConfigsType = {
   amountSteps: 3,

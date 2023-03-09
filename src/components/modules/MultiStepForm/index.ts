@@ -1,6 +1,6 @@
 import { MultiStepFormController } from './MultiStepFormController';
+import { MultiStepFormProvider } from './MultiStepFormProvider';
 import { MultiStepFormStep } from './MultiStepFormStep';
-import { MultiStepFormProvider } from './multiStepFormContext';
 
 export * from './useMultiStepForm';
 
