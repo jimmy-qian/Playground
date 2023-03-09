@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Button } from 'common';
 
+import { MultiStepForm } from '..';
 import { useMultiStepForm } from '../useMultiStepForm';
 import { Container } from './styled';
 
@@ -29,6 +30,7 @@ export const MultiStepFormController = () => {
       >
         Back
       </Button>
+      <MultiStepForm.StepsIndicator />
       <Button
         onClick={() => onClickNavigation('NEXT')}
         isDisabled={isLastStep || !isSubmittable}
