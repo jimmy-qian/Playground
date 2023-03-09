@@ -22,6 +22,7 @@ const HomePage: i.NextPageComponent = () => {
         <MultiStepForm.Step step={3}>
           <Heading>Step 3</Heading>
         </MultiStepForm.Step>
+        <MultiStepForm.Controller />
       </Container>
     </MultiStepForm.Provider>
   );

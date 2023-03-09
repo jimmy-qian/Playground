@@ -14,7 +14,6 @@ export const MultiStepFormStepsIndicator = () => {
           const isActive = currStep === index + 1;
           const isComplete = currStep > index + 1;
 
-          // TODO: Fix transition issue due to `index` used as `key`
           return <Indicator key={index} {...{ isActive, isComplete }} />;
         })}
     </Container>
