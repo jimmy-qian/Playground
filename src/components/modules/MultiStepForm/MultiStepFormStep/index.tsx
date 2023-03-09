@@ -4,11 +4,11 @@ import { useMultiStepForm } from '../useMultiStepForm';
 import { Container } from './styled';
 
 export const MultiStepFormStep = ({ children, step }: MultiStepFormStepProps) => {
-  const { currStep } = useMultiStepForm();
+  const { currStep, isAnimated } = useMultiStepForm();
 
   if (currStep !== step) return null;
 
-  return <Container>{children}</Container>;
+  return <Container {...{ isAnimated }}>{children}</Container>;
 };
 
 type MultiStepFormStepProps = {

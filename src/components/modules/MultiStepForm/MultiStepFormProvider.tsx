@@ -14,6 +14,7 @@ type MultiStepFormContextValuesType = {
   setIsSubmittable: (value: boolean) => void;
   isFirstStep: boolean;
   isLastStep: boolean;
+  isAnimated?: boolean;
 };
 
 const INITIAL_STEP = 1;
@@ -22,7 +23,7 @@ export const MultiStepFormProvider = ({ children, configs }: MultiStepFormProvid
   const [isSubmittable, setIsSubmittable] = React.useState(true);
   const [currStep, setCurrStep] = React.useState(INITIAL_STEP);
 
-  const { amountSteps } = configs;
+  const { amountSteps, isAnimated } = configs;
   const isFirstStep = currStep === INITIAL_STEP;
   const isLastStep = currStep === amountSteps;
 
@@ -50,6 +51,7 @@ export const MultiStepFormProvider = ({ children, configs }: MultiStepFormProvid
         setIsSubmittable,
         isFirstStep,
         isLastStep,
+        isAnimated,
       }}
     >
       {children}
@@ -64,4 +66,5 @@ type MultiStepFormProviderProps = {
 
 export type MultiStepFormConfigsType = {
   amountSteps: number;
+  isAnimated?: boolean;
 };
