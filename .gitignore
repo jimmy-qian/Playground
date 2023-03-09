@@ -1,0 +1,35 @@
+# project
+dist/
+node_modules/
+**/.next/
+bundle_analytics/
+sitemap*.xml
+**/public/sw.js
+**/public/workbox-*.js
+
+.env.production
+.env.local
+.env.production.local
+
+.idea
+.gitattributes
+**/*.tsbuildinfo
+
+# OS generated files #
+######################
+.AppleDouble/
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+*.happypack*
+ehthumbs.db
+Thumbs.db
+npm-debug.log
+stats.json
+
+# .env
+.env.*
+
+public
