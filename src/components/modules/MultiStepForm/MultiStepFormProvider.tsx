@@ -22,7 +22,7 @@ export const MultiStepFormProvider = ({ children, configs }: MultiStepFormProvid
   const [isSubmittable, setIsSubmittable] = React.useState(true);
   const [currStep, setCurrStep] = React.useState(INITIAL_STEP);
 
-  const { amountSteps, mode } = configs;
+  const { amountSteps } = configs;
   const isFirstStep = currStep === INITIAL_STEP;
   const isLastStep = currStep === amountSteps;
 
@@ -64,5 +64,4 @@ type MultiStepFormProviderProps = {
 
 export type MultiStepFormConfigsType = {
   amountSteps: number;
-  mode?: 'STATE' | 'URL';
 };
