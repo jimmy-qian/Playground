@@ -29,7 +29,6 @@ const headingSizes = {
 
 export const Heading = styled.h1<HeadingProps>`
   font-weight: 600;
-  font-family: serif;
   font-size: ${({ as }) => headingSizes[as || 'h1'].mobile};
   line-height: ${({ lineHeight }) => lineHeight || '140%'};
   color: ${({ color }) => color || 'black'};

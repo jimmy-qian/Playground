@@ -38,6 +38,7 @@ const App = ({ Component, pageProps: { dehydrateState, ...pageProps } }: Props) 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" sizes="192x192" href="/favicon.ico" />
+        <title>Jimmy's Playground</title>
       </Head>
       <ThemeProvider theme={theme}>
         <GlobalStyle />

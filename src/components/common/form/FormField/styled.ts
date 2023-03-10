@@ -1,6 +1,6 @@
-import { Label } from '@labela/components/form/Label/src';
 import styled, { css } from 'styled-components';
 
+import { Label } from '../Label';
 import { FormFieldProps } from './';
 
 export const FormFieldsWrapper = styled.div<FormFieldsWrapperProps>`

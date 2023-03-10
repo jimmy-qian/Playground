@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { FormContainer } from 'common/form';
+
 import { useMultiStepForm } from '../useMultiStepForm';
 import { Container } from './styled';
 
@@ -7,7 +9,9 @@ export const MultiStepFormStep = ({ children, step, isConfirmNeeded }: MultiStep
   const { currStep, isAnimated } = useMultiStepForm();
 
   React.useEffect(() => {
-    if (isConfirmNeeded) window.addEventListener('beforeunload', onUnloadPage);
+    if (isConfirmNeeded && currStep === step) {
+      window.addEventListener('beforeunload', onUnloadPage);
+    }
 
     return () => window.removeEventListener('beforeunload', onUnloadPage);
   }, [isConfirmNeeded]);
