@@ -21,6 +21,15 @@ export const MultiStepFormController = () => {
     }
   };
 
+  const onClickSubmit = () => {
+    alert('Submit form');
+  };
+
+  const onClickNextStep = () => {
+    if (isLastStep) onClickSubmit();
+    else onClickNavigation('NEXT');
+  };
+
   return (
     <Container>
       <Button
@@ -31,12 +40,8 @@ export const MultiStepFormController = () => {
         Back
       </Button>
       <MultiStepForm.StepsIndicator />
-      <Button
-        onClick={() => onClickNavigation('NEXT')}
-        isDisabled={isLastStep || !isSubmittable}
-        disabled={isLastStep || !isSubmittable}
-      >
-        Next
+      <Button onClick={onClickNextStep} isDisabled={!isSubmittable} disabled={!isSubmittable}>
+        {isLastStep ? 'Submit' : 'Next'}
       </Button>
     </Container>
   );

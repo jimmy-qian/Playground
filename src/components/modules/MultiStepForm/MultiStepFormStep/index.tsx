@@ -3,8 +3,18 @@ import * as React from 'react';
 import { useMultiStepForm } from '../useMultiStepForm';
 import { Container } from './styled';
 
-export const MultiStepFormStep = ({ children, step }: MultiStepFormStepProps) => {
+export const MultiStepFormStep = ({ children, step, isConfirmNeeded }: MultiStepFormStepProps) => {
   const { currStep, isAnimated } = useMultiStepForm();
+
+  React.useEffect(() => {
+    if (isConfirmNeeded) window.addEventListener('beforeunload', onUnloadPage);
+
+    return () => window.removeEventListener('beforeunload', onUnloadPage);
+  }, [isConfirmNeeded]);
+
+  const onUnloadPage = (e: BeforeUnloadEvent) => {
+    e.returnValue = 'Are you sure you want to exit the page?';
+  };
 
   if (currStep !== step) return null;
 
@@ -14,4 +24,5 @@ export const MultiStepFormStep = ({ children, step }: MultiStepFormStepProps) =>
 type MultiStepFormStepProps = {
   children: JSX.Element;
   step: number;
+  isConfirmNeeded?: boolean;
 };

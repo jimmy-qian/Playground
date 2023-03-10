@@ -20,7 +20,7 @@ const HomePage: i.NextPageComponent = () => {
         <MultiStepForm.Step step={2}>
           <Heading>Step 2</Heading>
         </MultiStepForm.Step>
-        <MultiStepForm.Step step={3}>
+        <MultiStepForm.Step step={3} isConfirmNeeded>
           <Heading>Step 3</Heading>
         </MultiStepForm.Step>
 
