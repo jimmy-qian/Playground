@@ -33,6 +33,7 @@ export const MultiStepFormContainer = ({
         {title && <Heading as="h4">{title}</Heading>}
         {children}
       </ContentContainer>
+      {/* TODO: Move this out of each step to prevent remounting */}
       <MultiStepForm.Controller />
     </FormContainer>
   );
