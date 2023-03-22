@@ -1,32 +1,27 @@
 import * as i from 'types';
 
-import { Heading } from 'common/typography';
 import { Container } from 'modules/Home';
 import { MultiStepForm } from 'modules/MultiStepForm';
-import { MultiStepFormConfigsType } from 'modules/MultiStepForm/MultiStepFormProvider';
+import { Step } from 'modules/MultiStepForm/MultiStepFormProvider';
+import { StepOneForm, StepTwoForm } from 'modules/MultiStepForm/Steps';
 
-const CONFIGS: MultiStepFormConfigsType = {
-  amountSteps: 3,
-  isAnimated: true,
-};
+const STEPS: Step[] = [
+  {
+    order: 0,
+    isSkippable: true,
+    component: <StepOneForm />,
+  },
+  {
+    order: 1,
+    component: <StepTwoForm />,
+  },
+];
 
 const HomePage: i.NextPageComponent = () => {
   return (
-    <MultiStepForm.Provider configs={CONFIGS}>
-      <Container>
-        <MultiStepForm.Step step={1}>
-          <Heading>Step 1</Heading>
-        </MultiStepForm.Step>
-        <MultiStepForm.Step step={2}>
-          <Heading>Step 2</Heading>
-        </MultiStepForm.Step>
-        <MultiStepForm.Step step={3} isConfirmNeeded>
-          <Heading>Step 3</Heading>
-        </MultiStepForm.Step>
-
-        <MultiStepForm.Controller />
-      </Container>
-    </MultiStepForm.Provider>
+    <Container>
+      <MultiStepForm.Root steps={STEPS} />
+    </Container>
   );
 };
 

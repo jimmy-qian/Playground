@@ -5,66 +5,95 @@ export const MultiStepFormContext = React.createContext<MultiStepFormContextValu
 );
 
 type MultiStepFormContextValuesType = {
-  amountSteps: number;
+  formState: FormState;
+  updateFormState: (value: Partial<FormState>) => void;
   incrementStep: () => void;
   decrementStep: () => void;
-  currStep: number;
-  setCurrStep: (value: number) => void;
-  isSubmittable: boolean;
-  setIsSubmittable: (value: boolean) => void;
   isFirstStep: boolean;
   isLastStep: boolean;
-  isAnimated?: boolean;
 };
 
-const INITIAL_STEP = 1;
+const INITIAL_STEP = 0;
 
-export const MultiStepFormProvider = ({ children, configs }: MultiStepFormProviderProps) => {
-  const [isSubmittable, setIsSubmittable] = React.useState(true);
-  const [currStep, setCurrStep] = React.useState(INITIAL_STEP);
+export const MultiStepFormProvider = ({ steps }: MultiStepFormProviderProps) => {
+  const [formState, setFormState] = React.useState<FormState>({
+    currStep: INITIAL_STEP,
+    amountSteps: steps.length,
+    isSubmittable: false,
+    isProcessing: false,
+  });
 
-  const { amountSteps, isAnimated } = configs;
-  const isFirstStep = currStep === INITIAL_STEP;
-  const isLastStep = currStep === amountSteps;
+  const isFirstStep = formState.currStep === INITIAL_STEP;
+  const isLastStep = formState.currStep === formState.amountSteps;
+
+  const currStepConfig = steps.find((step) => step.order === formState.currStep) || steps[0];
+
+  React.useEffect(() => {
+    if (formState.isProcessing) {
+      setFormState((currFormState) => ({
+        ...currFormState,
+        isSubmittable: false,
+      }));
+    }
+  }, [formState.isProcessing]);
+
+  React.useEffect(() => {
+    if (!currStepConfig) return;
+
+    updateFormState({ isSubmittable: currStepConfig.isSkippable });
+  }, [currStepConfig]);
+
+  const updateFormState = (newFormState: Partial<FormState>) => {
+    setFormState((currFormState) => ({ ...currFormState, ...newFormState }));
+  };
 
   const incrementStep = () => {
-    if (isLastStep) return;
+    if (formState.currStep === formState.amountSteps - 1) return;
 
-    setCurrStep((currStep) => currStep + 1);
+    setFormState((currFormState) => ({
+      ...currFormState,
+      currStep: currFormState.currStep + 1,
+    }));
   };
 
   const decrementStep = () => {
-    if (isFirstStep) return;
+    if (formState.currStep === INITIAL_STEP) return;
 
-    setCurrStep((currStep) => currStep - 1);
+    setFormState((currFormState) => ({
+      ...currFormState,
+      currStep: currFormState.currStep - 1,
+    }));
   };
 
   return (
     <MultiStepFormContext.Provider
       value={{
-        currStep,
-        amountSteps,
+        formState,
+        updateFormState,
         incrementStep,
         decrementStep,
-        setCurrStep,
-        isSubmittable,
-        setIsSubmittable,
         isFirstStep,
         isLastStep,
-        isAnimated,
       }}
     >
-      {children}
+      {currStepConfig.component}
     </MultiStepFormContext.Provider>
   );
 };
 
 type MultiStepFormProviderProps = {
-  children: JSX.Element;
-  configs: MultiStepFormConfigsType;
+  steps: Step[];
 };
 
-export type MultiStepFormConfigsType = {
+type FormState = {
+  currStep: number;
   amountSteps: number;
-  isAnimated?: boolean;
+  isSubmittable: boolean;
+  isProcessing: boolean;
+};
+
+export type Step = {
+  order: number;
+  isSkippable?: boolean;
+  component: JSX.Element;
 };

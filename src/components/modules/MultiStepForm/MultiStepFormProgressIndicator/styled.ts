@@ -7,28 +7,28 @@ export const Container = styled.div`
   gap: 8px;
 `;
 
-export const Indicator = styled.span<IndicatorProps>`
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
-  background-color: #e6e6e6;
-  transition: 0.2s ease;
+export const Indicator = styled.span<IndicatorProps>(
+  ({ isActive, isCompleted }) => css`
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    background-color: #e6e6e6;
+    transition: 0.2s ease;
 
-  ${({ isActive }) =>
-    isActive &&
+    ${isActive &&
     css`
       width: 24px;
       background-color: #a3e31b;
     `}
 
-  ${({ isComplete }) =>
-    isComplete &&
+    ${isCompleted &&
     css`
       background-color: #80bc00;
     `};
-`;
+  `,
+);
 
 type IndicatorProps = {
-  isComplete?: boolean;
+  isCompleted?: boolean;
   isActive?: boolean;
 };
