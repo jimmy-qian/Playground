@@ -25,7 +25,6 @@ export const MultiStepFormProvider = ({ steps }: MultiStepFormProviderProps) => 
 
   const isFirstStep = formState.currStep === INITIAL_STEP;
   const isLastStep = formState.currStep === formState.amountSteps;
-
   const currStepConfig = steps.find((step) => step.order === formState.currStep) || steps[0];
 
   React.useEffect(() => {

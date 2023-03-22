@@ -3,7 +3,7 @@ import * as i from 'types';
 import { Container } from 'modules/Home';
 import { MultiStepForm } from 'modules/MultiStepForm';
 import { Step } from 'modules/MultiStepForm/MultiStepFormProvider';
-import { StepOneForm, StepTwoForm } from 'modules/MultiStepForm/Steps';
+import { StepOneForm, StepThreeForm, StepTwoForm } from 'modules/MultiStepForm/Steps';
 
 const STEPS: Step[] = [
   {
@@ -14,6 +14,10 @@ const STEPS: Step[] = [
   {
     order: 1,
     component: <StepTwoForm />,
+  },
+  {
+    order: 2,
+    component: <StepThreeForm />,
   },
 ];
 
