@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { MultiStepForm } from '.';
+
 export const MultiStepFormContext = React.createContext<MultiStepFormContextValuesType | null>(
   null,
 );
@@ -19,6 +21,7 @@ export const MultiStepFormProvider = ({ steps }: MultiStepFormProviderProps) => 
   const [formState, setFormState] = React.useState<FormState>({
     currStep: INITIAL_STEP,
     amountSteps: steps.length,
+    onSubmitCurrentStep: undefined,
     isSubmittable: false,
     isProcessing: false,
   });
@@ -76,6 +79,7 @@ export const MultiStepFormProvider = ({ steps }: MultiStepFormProviderProps) => 
       }}
     >
       {currStepConfig.component}
+      <MultiStepForm.Controller />
     </MultiStepFormContext.Provider>
   );
 };
@@ -87,6 +91,7 @@ type MultiStepFormProviderProps = {
 type FormState = {
   currStep: number;
   amountSteps: number;
+  onSubmitCurrentStep: (() => void) | undefined;
   isSubmittable: boolean;
   isProcessing: boolean;
 };

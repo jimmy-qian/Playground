@@ -8,7 +8,6 @@ import { StepOneForm, StepThreeForm, StepTwoForm } from 'modules/MultiStepForm/S
 const STEPS: Step[] = [
   {
     order: 0,
-    isSkippable: true,
     component: <StepOneForm />,
   },
   {

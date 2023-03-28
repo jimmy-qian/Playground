@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Heading } from 'common/typography';
 
 import { useMultiStepForm } from '..';
-import { MultiStepForm } from '..';
 import { ContentContainer, FormContainer, StyledButton } from './styled';
 
 export const MultiStepFormContainer = ({
@@ -12,29 +11,25 @@ export const MultiStepFormContainer = ({
   isStepValid = false,
   onSubmitStep,
 }: MultiStepFormContainerProps) => {
-  const { formState, updateFormState, decrementStep, isFirstStep } = useMultiStepForm();
+  const { updateFormState, decrementStep, isFirstStep } = useMultiStepForm();
 
   React.useEffect(() => {
     updateFormState({ isSubmittable: isStepValid });
   }, [isStepValid]);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  React.useEffect(() => {
+    if (!onSubmitStep) return;
 
-    if (!formState.isSubmittable || typeof onSubmitStep === 'undefined') return;
-
-    onSubmitStep();
-  };
+    updateFormState({ onSubmitCurrentStep: onSubmitStep });
+  }, [onSubmitStep]);
 
   return (
-    <FormContainer {...{ onSubmit }}>
+    <FormContainer>
       {!isFirstStep && <StyledButton onClick={decrementStep}>Back</StyledButton>}
       <ContentContainer>
         {title && <Heading as="h4">{title}</Heading>}
         {children}
       </ContentContainer>
-      {/* TODO: Move this out of each step to prevent remounting */}
-      <MultiStepForm.Controller />
     </FormContainer>
   );
 };

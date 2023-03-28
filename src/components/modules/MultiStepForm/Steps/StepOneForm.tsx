@@ -4,11 +4,7 @@ import { Heading } from 'common/typography';
 import { MultiStepForm, useMultiStepForm } from 'modules/MultiStepForm';
 
 export const StepOneForm = () => {
-  const { incrementStep } = useMultiStepForm();
-
-  const onSubmitStep = () => {
-    incrementStep();
-  };
+  const onSubmitStep = () => {};
 
   return (
     <MultiStepForm.FormContainer onSubmitStep={onSubmitStep}>
