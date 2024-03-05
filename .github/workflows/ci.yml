@@ -1,0 +1,56 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Setup Cache
+      - name: Setup Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      # Checkout to branch to execute from
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm run ci:install
+
+      # Audit dependencies for vulnerabilities
+      - name: Dependency Audit
+        run: npm run ci:audit
+
+      # Run tests
+      - name: Tests
+        run: |
+          npm run ci:lint
+          npm run ci:typecheck
+
+      # Build Project
+      - name: Build
+        run: npm run ci:build

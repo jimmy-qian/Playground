@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <img src="https://github.com/LabelA/prime-monorepo/blob/main/prime-logo.png?raw=true" alt="prime-logo" width="250px" />
+</p>
 
-## Getting Started
+# React Web
 
-First, run the development server:
+## Quick start
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Use [create-react-prime](https://www.npmjs.com/package/create-react-prime) for easy install.
+
+```
+npx create-react-prime@latest
+cd <project name>
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [TypeScript](https://www.typescriptlang.org/)
+- [NextJS](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [React Query](https://react-query.tanstack.com/overview)
+- [Tailwindcss](https://www.tailwindcss.com)
+- [ESLint](http://eslint.org) to maintain a consistent code style
+- Refer to `package.json` for more details
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## NPM Scripts
 
-## Learn More
+- Start develop server: `$ npm start` or `$ npm run dev`
+- Create production build: `$ npm run build`
+- Start server: `$ npm run server`
+- Run ESLint: `$ npm run lint`
+- Run Typechecker: `$ npm run typecheck`
+- Run Tests: `$ npm run test` or `$ npm t`
+- Generate bundle analysis: `$ npm run analyzer`
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Make sure all modules are installed:
+`npm install`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Create a build for production, this will add a `/.next` folder to the root of the project with the Next.js server and transpiled code.
+`npm run build`
 
-## Deploy on Vercel
+Run the server file to start server:
+`npm run server`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### PM2
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For production I recommend to use [PM2](http://pm2.keymetrics.io/) to run the server with advanced process management.
+
+To start the Next.js server with PM2 you can use this json file
+
+```json
+{
+  "apps": [
+    {
+      "name": "my-app",
+      "script": "npm",
+      "args": "start"
+    }
+  ]
+}
+```
+
+or run:
+
+`pm2 start npm --name "my-app" -- start`
+
+## Development Workflow
+
+### Components
+
+The components are separated in `common` and `modules`.
+
+- The `common` folder includes components are self-contained and can be used through the entire app
+- The `modules` folder includes bundled components which depend on each other.
+
+### Static Assets
+
+Any static assets, such as images and SVG, are now placed inside the `public` folder in their respective folder (i.e. `public/images` and `public/vectors`). Importing can be done simply by writing the relative URL (i.e. `/images/your-img.png`) in both CSS and JS. You can still import SVG files as a module.
+
+```ts
+import PrimeIcon from 'vectors/icon.svg';
+```
+
+[Some static files](https://nextjs.org/docs/app/api-reference/file-conventions/metadata) can be optimized and generated with NextJS. These will need to be placed in the `app` folder.
